@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Chief of Staff AI
+
+An autonomous AI agent that plans, reasons, and executes multi-step tasks using real tools — with full reasoning transparency.
+
+## Architecture
+
+```
+User Query → Planner (Claude) → Tool Executor → Synthesizer → Final Answer
+```
+
+**3-Phase Execution:**
+1. **Planning** — Claude breaks the query into a multi-step execution plan with dependency ordering
+2. **Execution** — Each step runs the appropriate tool (flights, hotels, weather, etc.) with mock or real data
+3. **Synthesis** — Claude aggregates all tool outputs into a clear, actionable recommendation
+
+## Tech Stack
+
+- **Frontend:** Next.js 16 (App Router), TypeScript, Tailwind CSS
+- **State:** Zustand
+- **AI:** Anthropic Claude API (claude-haiku-4-5)
+- **Animations:** Framer Motion
+- **Icons:** Lucide React
+
+## 10 Built-in Tools
+
+| Tool | Category | Description |
+|------|----------|-------------|
+| search_flights | search | Search flights between cities |
+| search_hotels | search | Find hotels by city and dates |
+| search_restaurants | search | Discover restaurants by cuisine/location |
+| search_activities | search | Find activities and attractions |
+| get_weather | data | Get weather forecasts |
+| calculate_budget | compute | Budget breakdown calculator |
+| create_itinerary | data | Generate day-by-day itineraries |
+| create_calendar_event | calendar | Create calendar events |
+| web_search | search | General web search |
+| summarize_data | compute | Summarize and analyze data |
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+# Install dependencies
+npm install
+
+# Set up environment
+cp .env.local.example .env.local
+# Add your ANTHROPIC_API_KEY (optional — works with mock data)
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Build for production
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Docker
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+docker-compose up --build
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Demo Mode
 
-## Learn More
+The app works fully without an API key using intelligent mock data. When an API key is configured, Claude generates real execution plans and synthesized answers.
 
-To learn more about Next.js, take a look at the following resources:
+## Key Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Real-time Reasoning Timeline** — Watch the agent think step-by-step
+- **Execution Plan Visualization** — See progress through each tool call
+- **10 Specialized Tools** — Flight search, hotel booking, weather, restaurants, and more
+- **Task History** — Every task stored with full reasoning trace
+- **Dark Theme** — Clean, professional zinc-950 design
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Structure
 
-## Deploy on Vercel
+```
+src/
+├── app/
+│   ├── api/agent/     # Claude API route (plan + synthesize)
+│   ├── dashboard/     # Main agent dashboard
+│   └── page.tsx       # Landing page
+├── components/agent/
+│   ├── CommandConsole  # Query input with examples
+│   ├── ReasoningTimeline # Step-by-step reasoning display
+│   ├── PlanView        # Execution plan progress
+│   └── ToolsSidebar    # Tools catalog + task history
+└── lib/
+    ├── agent-engine.ts # Core 3-phase orchestration
+    ├── tool-executor.ts # Mock tool implementations
+    ├── tools.ts        # Tool definitions
+    ├── store.ts        # Zustand state
+    └── types.ts        # TypeScript types
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Built by **Kuldeep Dave** · SWE2 @ Meta
