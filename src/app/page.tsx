@@ -30,9 +30,9 @@ export default function Home() {
           <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-sm font-bold">CS</div>
           <span className="font-bold text-lg">Chief of Staff AI</span>
         </div>
-        <div className="flex items-center gap-4">
-          <a href="#architecture" className="text-sm text-zinc-500 hover:text-white transition-colors">Architecture</a>
-          <Link href="/dashboard" className="text-sm bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-lg font-medium transition-colors">
+        <div className="flex items-center gap-3 sm:gap-4">
+          <a href="#architecture" className="hidden sm:block text-sm text-zinc-500 hover:text-white transition-colors">Architecture</a>
+          <Link href="/dashboard" className="text-xs sm:text-sm bg-indigo-600 hover:bg-indigo-500 text-white px-3 sm:px-4 py-2 rounded-lg font-medium transition-colors">
             Open Console →
           </Link>
         </div>
